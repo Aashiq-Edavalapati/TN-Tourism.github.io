@@ -249,18 +249,20 @@
 
                     const feedbackContainer = document.getElementById('feedbackContainer');
 
-                    // Clears previous feedback
-                    feedbackContainer.innerHTML = '';
+                    let feedbackMsg = feedbackContainer.querySelector('.feedback-msg');
+                    if (!feedbackMsg) {
+                        feedbackMsg = document.createElement('p');
+                        feedbackMsg.className = 'feedback-msg';
+                        feedbackContainer.appendChild(feedbackMsg);
+                    }
 
                     if (isValid) {
-                        const successMessage = document.createElement('p');
-                        successMessage.textContent = 'Congratulations! You answered all the questions correctly.';
-                        feedbackContainer.appendChild(successMessage);
-                        form.reset(); // Reset the form
+                        feedbackMsg.textContent = 'Congratulations! You answered all the questions correctly.';
+                        feedbackMsg.className = 'feedback-msg correct';
+                        form.reset();
                     } else {
-                        const errorMsg = document.createElement('p');
-                        errorMsg.textContent = errorMessage || 'You have so much to discover about Tamil Nadu';
-                        feedbackContainer.appendChild(errorMsg);
+                        feedbackMsg.textContent = errorMessage || 'You have so much to discover about Tamil Nadu';
+                        feedbackMsg.className = 'feedback-msg error';
                     }
 
                     return false;
